@@ -19,19 +19,10 @@ const CONFIG = await import('../../../CONFIG.json', {
 });
 // console.log(CONFIG.size['element-name']);
 
-let instance = null
-
 export default class Qudrix01
 {
     constructor()
     {
-
-        // Singleton
-        if (instance)
-        {
-            return instance
-        }
-        instance = this
 
         this.experience = new Experience()
         this.time = this.experience.time
