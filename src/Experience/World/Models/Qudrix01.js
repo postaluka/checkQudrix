@@ -5,40 +5,28 @@ import Materials from '../../Resources/Materials'
 
 import Experience from '../../Experience'
 
-import StaticModel from './Q01/StaticModel'
-
 import Roof from './Q01/Roof'
 import Side01 from './Q01/Side01'
 import Side02 from './Q01/Side02'
 import Side03 from './Q01/Side03'
 import Side04 from './Q01/Side04'
-import Attachment from './Q01/Attachment'
 
 const CONFIG = await import('../../../CONFIG.json', {
     with: { type: "json" },
 });
 // console.log(CONFIG.size['element-name']);
 
-let instance = null
-
 export default class Qudrix01
 {
     constructor()
     {
-
-        // Singleton
-        if (instance)
-        {
-            return instance
-        }
-        instance = this
+        // console.log(CONFIG);
 
         this.experience = new Experience()
         this.time = this.experience.time
         this.loader = new Loaders()
 
         this.materials = new Materials()
-        this.staticModel = new StaticModel(CONFIG)
 
         // Debug
         this.debug = this.experience.debug
@@ -48,9 +36,9 @@ export default class Qudrix01
         /**
          * Base
          */
-        this.base = this.staticModel.base
+        this.base = new THREE.Group()
         this.instance.add(this.base)
-        // this.loadBase()
+        this.loadBase()
 
         /**
          * Roof
@@ -86,16 +74,7 @@ export default class Qudrix01
         /**
          * Attachment
          */
-        this.attachment = new Attachment(CONFIG)
-        this.instance.add(this.attachment.instance)
-
-        this.attachmentDebug()
-
-        /**
-         * Color 
-         */
-
-        this.colorDebug()
+        this.attachment = new THREE.Group()
     }
 
     loadBase()
@@ -188,32 +167,6 @@ export default class Qudrix01
         }
     }
 
-    attachmentDebug()
-    {
-        this.attachment.setFunctions()
-
-
-        if (this.debug.active)
-        {
-            // Attachment
-            this.debug.attachmentFolder.add(this.attachment.functions, 'addAutomaticAwing').name('AutomaticAwing')
-            this.debug.attachmentFolder.add(this.attachment.functions, 'addBioclimacticPergola').name('BioclimacticPergola')
-            this.debug.attachmentFolder.add(this.attachment.functions, 'removeAttachment').name('removeAttachment')
-        }
-    }
-
-    colorDebug()
-    {
-        this.staticModel.setFunctions()
-
-        if (this.debug.active)
-        {
-            this.debug.colorFolder.add(this.staticModel.functions, 'blackColor')
-            this.debug.colorFolder.add(this.staticModel.functions, 'creamColor')
-
-        }
-    }
-
     updateSides()
     {
         this.side01.update()
@@ -227,7 +180,6 @@ export default class Qudrix01
     {
         this.roof.update()
         this.updateSides()
-        this.attachment.update()
     }
 }
 

@@ -9,6 +9,9 @@ export default class StaticModel
 {
     constructor(CONFIG)
     {
+
+
+
         this.experience = new Experience()
         this.time = this.experience.time
         this.animation = new Animation()
@@ -18,12 +21,6 @@ export default class StaticModel
         this.materials = new Materials()
 
         this.instance = new THREE.Group()
-
-        /**
-         * Base
-         */
-
-        this.base = new THREE.Group()
 
         /**
          * Roof
@@ -38,15 +35,10 @@ export default class StaticModel
         this.solidWall = new THREE.Group()
         this.smartGlassWindow = new THREE.Group()
 
-        /**
-         * Attachmet
-         */
-        this.attachment = new THREE.Group()
-
-        this.loadStaticModel(CONFIG)
+        this.loadBasicModel(CONFIG)
     }
 
-    loadStaticModel(CONFIG)
+    loadBasicModel(CONFIG)
     {
         this.loader.gltf.load(
             '/3D/qudrix-webgl_q1.glb',
@@ -57,22 +49,6 @@ export default class StaticModel
 
                 for (const child of children)
                 {
-
-                    /**
-                    * Add Base
-                    */
-                    if (child.name === 'base' ||
-                        child.name === 'floor')
-                    {
-                        this.base.add(child)
-
-                        child.castShadow = true
-                        child.receiveShadow = true
-
-                        // console.log(child.material);
-                        child.material = this.materials.wallPhysicMaterial
-                    }
-
                     /**
                      * Add Roof
                      */
@@ -109,79 +85,41 @@ export default class StaticModel
                         if (CONFIG.roof['element-name'] === 'MirrorGlass') { this.roofMirrorGlass.scale.set(1, 1, 1) }
                         else { this.roofMirrorGlass.scale.set(0, 0, 0) }
 
-                    }
+                        /**
+                         * Add Sides
+                         */
 
-                    /**
-                     * Add Sides
-                     */
-
-                    if (child.name === 'sides_glass_window')
-                    {
-                        this.glassWindow.add(child)
-                        this.glassWindow.scale.set(0, 0, 0)
-
-                        child.children[0].material = this.materials.glassWindow
-
-                        child.castShadow = true
-                        child.receiveShadow = true
-                    }
-
-                    if (child.name === 'sides_solid_panel_01')
-                    {
-                        this.solidWall.add(child)
-                        this.solidWall.scale.set(0, 0, 0)
-                        child.castShadow = true
-                        child.receiveShadow = true
-                    }
-
-                    if (child.name === 'sides_solid_panels_02')
-                    {
-                        this.smartGlassWindow.add(child)
-                        this.smartGlassWindow.scale.set(0, 0, 0)
-                        child.castShadow = true
-                        child.receiveShadow = true
-                        child.children[1].material = this.materials.glassWindow
-                    }
-
-                    /**
-                     * Attachment
-                     */
-
-                    if (child.name === 'attach_bioclimactic_pergola_Q27')
-                    {
-
-                        // console.log(child);
-                        this.attachment.add(child.children[0])
-                    }
-
-                    // Material attachment
-                    gltf.scene.traverse((object) =>
-                    {
-                        if (object.isMesh && object.name === 'attach_bioclimactic_pergola_Q27_base')
+                        if (child.name === 'sides_glass_window')
                         {
-                            // console.log(object.material.name);
-                            object.material = this.materials.wallPhysicMaterial
+                            this.glassWindow.add(child)
+                            this.glassWindow.scale.set(0, 0, 0)
+
+                            child.children[0].material = this.materials.glassWindow
+
+                            child.castShadow = true
+                            child.receiveShadow = true
                         }
-                    })
 
+                        if (child.name === 'sides_solid_panel_01')
+                        {
+                            this.solidWall.add(child)
+                            this.solidWall.scale.set(0, 0, 0)
+                            child.castShadow = true
+                            child.receiveShadow = true
+                        }
 
+                        if (child.name === 'sides_solid_panels_02')
+                        {
+                            this.smartGlassWindow.add(child)
+                            this.smartGlassWindow.scale.set(0, 0, 0)
+                            child.castShadow = true
+                            child.receiveShadow = true
+                            child.children[1].material = this.materials.glassWindow
+                        }
+
+                    }
                 }
             }
         )
-    }
-
-    setFunctions()
-    {
-        this.functions = {}
-
-        this.functions.blackColor = () =>
-        {
-            this.materials.wallPhysicMaterial.color = new THREE.Color(0x161616)
-        }
-
-        this.functions.creamColor = () =>
-        {
-            this.materials.wallPhysicMaterial.color = new THREE.Color(0xF2EFE4)
-        }
     }
 }
