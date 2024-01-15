@@ -7,7 +7,7 @@ import Lights from './Lights';
 import Cube from './Models/Cube';
 import Floor from './Models/Floor';
 
-// import Qudrix01 from './Models/Qudrix01';
+import Qudrix01 from './Models/Qudrix01';
 
 
 export default class World
