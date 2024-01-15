@@ -12,19 +12,10 @@ import Textures from './Resources/Texture';
 
 let instance = null
 
-
-// const module = await import('./CONFIG.json', {
-//     with: { type: "json" },
-// });
-// console.log(module.size['element-name']);
-
-
 export default class Experience
 {
     constructor(canvas)
     {
-
-
 
         // Singleton
         if (instance)
@@ -82,7 +73,6 @@ export default class Experience
     update()
     {
         this.camera.update()
-        this.world.update()
         this.renderer.update()
     }
 }

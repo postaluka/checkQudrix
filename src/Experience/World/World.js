@@ -7,8 +7,7 @@ import Lights from './Lights';
 import Cube from './Models/Cube';
 import Floor from './Models/Floor';
 
-import Qudrix01 from './Models/Qudrix01';
-
+import Room from './Models/Room';
 
 export default class World
 {
@@ -21,12 +20,11 @@ export default class World
 
         this.cube = new Cube()
         this.floor = new Floor()
-        this.qudrix01 = new Qudrix01()
+        this.room = new Room()
 
         // Add lights
         this.scene.add(
             this.lights.directional,
-            this.lights.ambient
             // this.lights.directionalHelper,
             // this.lights.directionalCameraHelper,
         )
@@ -35,18 +33,10 @@ export default class World
         this.scene.add(
             // this.cube.instance,
             this.floor.instance,
-            this.qudrix01.instance,
+            this.room.instance
 
         )
 
-    }
 
-    update()
-    {
-        if (this.qudrix01)
-        {
-            this.qudrix01.update()
-        }
     }
-
 }
