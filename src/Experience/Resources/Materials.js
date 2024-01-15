@@ -1,12 +1,24 @@
 import * as THREE from 'three'
+import Loaders from '../Utils/Loaders'
 
 import Textures from './Texture'
+
+
 
 export default class Materials
 {
     constructor()
     {
+
+        this.wallPhysicMaterial = new THREE.MeshPhysicalMaterial({
+            color: 0x161616, //0x161616
+            metalness: 0,
+            roughness: 0.45
+        })
+
+
         this.textures = new Textures()
+        this.loader = new Loaders()
 
         this.basic = new THREE.MeshStandardMaterial({
             metalness: 0.45,
@@ -14,18 +26,31 @@ export default class Materials
             side: THREE.DoubleSide,
         })
 
-        this.bricks = new THREE.MeshStandardMaterial({
-            map: this.textures.bricksColor,
-            metalness: 0.6,
-            roughnessMap: this.textures.bricksRoughness,
-            displacementMap: this.textures.bricksDisplacement,
-            displacementScale: 0,
-            side: THREE.DoubleSide,
-            // aoMap: this.textures.bricksAmbientOcclusion,
-            // aoMapIntensity: 1
+        this.glass = new THREE.MeshPhysicalMaterial({
+            metalness: 0.8,
+            roughness: 0.2,
+            transmission: 0.8,
+            thickness: 0.1,
+            transparent: true,
+            emissive: new THREE.Color(0x0C1414),
+            opacity: 0.8,
+            side: THREE.DoubleSide
         })
-        this.bricks.normalMap = this.textures.bricksNormalGL
-        this.bricks.normalScale.set(0.7, 0.7)
+
+        this.glassWindow = new THREE.MeshPhysicalMaterial({
+            metalness: 0.8,
+            roughness: 0.05,
+            transmission: 0.8,
+            thickness: 0.1,
+            transparent: true,
+            emissive: new THREE.Color(0x0C1414),
+            opacity: 0.5,
+            side: THREE.DoubleSide
+        })
+
 
     }
+
+
+
 }
