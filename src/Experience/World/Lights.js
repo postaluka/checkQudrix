@@ -11,8 +11,6 @@ export default class Lights
         this.setDirectional()
         // this.debugDirectional()
 
-        this.setAmbient()
-
 
 
     }
@@ -56,10 +54,5 @@ export default class Lights
             this.debug.ui.add(this.directional, 'intensity', 0, 1, 0.01).name('dirLight.intensity')
 
         }
-    }
-
-    setAmbient()
-    {
-        this.ambient = new THREE.AmbientLight(0xffffff, 0.1)
     }
 }
