@@ -7,8 +7,6 @@ import Lights from './Lights';
 import Cube from './Models/Cube';
 import Floor from './Models/Floor';
 
-import Room from './Models/Room';
-
 export default class World
 {
     constructor()
@@ -20,7 +18,6 @@ export default class World
 
         this.cube = new Cube()
         this.floor = new Floor()
-        this.room = new Room()
 
         // Add lights
         this.scene.add(
@@ -31,10 +28,8 @@ export default class World
 
         // Add models
         this.scene.add(
-            // this.cube.instance,
+            this.cube.instance,
             this.floor.instance,
-            this.room.instance
-
         )
 
 
