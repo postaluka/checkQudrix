@@ -5,8 +5,8 @@ import Materials from '../../../Resources/Materials'
 import Experience from '../../../Experience'
 import Animation from '../../../Utils/Animation'
 
-
-import Qudrix01 from '../Qudrix01'
+import StaticModel from './StaticModel'
+// import Qudrix01 from '../Qudrix01'
 
 
 export default class Roof
@@ -21,15 +21,16 @@ export default class Roof
         this.loader = new Loaders()
         this.materials = new Materials()
 
-        this.qudrix01 = new Qudrix01()
+        // this.qudrix01 = new Qudrix01()
+        this.staticModel = new StaticModel(CONFIG)
 
         this.instance = new THREE.Group()
 
         /**
          * Roof
          */
-        this.roofSolidPanels = this.qudrix01.staticModel.roofSolidPanels
-        this.roofMirrorGlass = this.qudrix01.staticModel.roofMirrorGlass
+        this.roofSolidPanels = this.staticModel.roofSolidPanels
+        this.roofMirrorGlass = this.staticModel.roofMirrorGlass
         this.roofPergolaQ25 = new THREE.Group()
         this.roofPergolaQ27 = new THREE.Group()
         this.roofAccessories = new THREE.Group()
